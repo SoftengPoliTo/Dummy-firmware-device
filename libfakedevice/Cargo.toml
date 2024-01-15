@@ -1,0 +1,24 @@
+[package]
+name = "libfakedevice"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cpal = "0.15.2"
+reqwest = "0.11.23"
+rscam = { version = "0.5.5", features = ["no_wrapper"] }
+tokio = { version = "1", features = ["full"] }
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+debug-assertions = false
+codegen-units = 1
+panic = "unwind"
+incremental = false
+overflow-checks = false
+strip = "debuginfo"
