@@ -1,4 +1,4 @@
-#include "../include/device.hpp"
+#include "../include/device.h"
 
 bool turnLampOn() {
     return true;
