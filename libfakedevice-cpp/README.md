@@ -48,10 +48,11 @@ It is important to note that although the compilation procedure can be automated
 
 1. Install Meson and CLang:
    ```bash
+   # Meson installation.
    sudo apt-get update
    sudo apt-get install meson
 
-   # Configure and install dependencies and project.
+   # clang installation.
    sudo apt-get update
    sudo apt-get install clang
    ```
