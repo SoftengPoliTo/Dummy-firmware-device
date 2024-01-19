@@ -19,11 +19,11 @@ then
     sudo apt-get update
     sudo apt-get install clang
 else
-    echo "Clang++ già installato."
+    echo "Clang++ already installed."
 fi
 
 # Configure and compile the project with Meson and Ninja
-echo "Configurazione e compilazione del progetto..."
+echo "Project configuration and compilation..."
 env CXX=clang++ meson setup build
 cd build
 ninja

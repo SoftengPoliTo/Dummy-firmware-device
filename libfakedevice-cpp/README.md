@@ -62,7 +62,7 @@ It is important to note that although the compilation procedure can be automated
    cd /path/to/your/project/libfakedevice-cpp
 
    # Configure and install dependencies and project.
-   env CXX=clang++ meson setup build # to use clang as compiler
+   env CXX=clang++ meson setup build 
    cd build
    ninja
    ```
@@ -70,6 +70,19 @@ It is important to note that although the compilation procedure can be automated
    ```bash
     ./libfakedevice
    ```
+
+Should Meson encounter difficulties in proceeding with the download and installation of the various dependencies, it is recommended that you manually run the following commands in order to install the libraries used on your system.
+```bash
+# Command to install libcurl library
+sudo apt-get update
+sudo apt-get install libcurl4-openssl-dev
+
+# Command to install OpenCV library version 4
+sudo apt-get install libopencv-dev
+
+# Command to install RtAudio library
+sudo apt-get install librtaudio-dev
+```
 
 ## Dependencies
 
