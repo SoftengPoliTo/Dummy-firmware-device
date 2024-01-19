@@ -22,10 +22,10 @@ sources = [
   'src/fake-firmware.cpp',
 ]
 
-# Declaration of external dependencies with automatic installation
-libcurl_dep = dependency('libcurl', required: true)
-opencv_dep = dependency('opencv4', required: true)
-rtaudio_dep = dependency('rtaudio', required: true)
+# Declaration of external dependencies using Wrap
+libcurl_dep = dependency('libcurl', fallback : ['libcurl', 'libcurlWrap'])
+opencv_dep = dependency('opencv4', fallback : ['opencv', 'opencvWrap'])
+rtaudio_dep = dependency('rtaudio', fallback : ['rtaudio', 'rtaudioWrap'])
 
 # Declaration of executable and dependencies.
 fake_firmware = executable (
