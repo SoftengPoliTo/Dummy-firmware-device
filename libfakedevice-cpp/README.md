@@ -36,7 +36,7 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 
 ## Automatic Build 
 
-The complete compilation procedure can be started by running `./install_and_build.sh`. This script will take care of the necessary installations, including Meson (used to orchestrate the build process) and Clang++ (used as the compiler), if they are not already present in the operating system. Next, the process will continue with configuration and, optionally, installation of dependencies, followed by the compilation of the project itself.
+The complete compilation procedure can be started by running `./autoconfig.sh`. This script will take care of the necessary installations, including Meson (used to orchestrate the build process) and Clang++ (used as the compiler), if they are not already present in the operating system. Next, the process will continue with configuration and, optionally, installation of dependencies, followed by the compilation of the project itself.
 
 To make changes to the code and subsequently recompile it, simply run the `ninja` command within the build directory.
 
@@ -69,7 +69,6 @@ It is important to note that although the compilation procedure can be automated
    ```bash
     ./libfakedevice
    ```
-
 
 ## Dependencies
 
