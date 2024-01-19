@@ -34,9 +34,28 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 - Integrates and utilizes functionalities from both `device` and `features`.
 - Demonstrates the combined usage of features in a simulated firmware.
 
-## Build and Run
+## Automatic Build 
 
-1. Build the project using Meson:
+The complete compilation procedure can be started by running `./install_and_build.sh`. This script will take care of the necessary installations, including Meson (used to orchestrate the build process) and Clang++ (used as the compiler), if they are not already present in the operating system. Next, the process will continue with configuration and, optionally, installation of dependencies, followed by the compilation of the project itself.
+
+To make changes to the code and subsequently recompile it, simply run the `ninja` command within the build directory.
+
+After the build process, you can run the product file by accessing to the build folder and running `./libfakedevice`.
+
+## Manual Build
+
+It is important to note that although the compilation procedure can be automated to simplify the process, the portability of execution may be affected by the diversity of operating environments and system permissions. Therefore, becoming familiar with the manual installation procedure is advantageous, as it provides a deeper understanding of specific dependencies and system-specific configurations.
+
+1. Install Meson and CLang:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install meson
+
+   # Configure and install dependencies and project.
+   sudo apt-get update
+   sudo apt-get install clang
+   ```
+2. Build the project using Meson:
    ```bash
    # Navigate to the project directory
    cd /path/to/your/project/libfakedevice-cpp
@@ -45,15 +64,15 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
    env CXX=clang++ meson setup build # to use clang as compiler
    cd build
    ninja
-   ninja install
    ```
-2. Run the project:
+3. Run the project:
    ```bash
     ./libfakedevice
    ```
+
 
 ## Dependencies
 
 1. [libcurl](https://github.com/curl/curl)
 2. [opencv](https://github.com/opencv/opencv)
-3. [RtAudio](https://github.com/thestk/rtaudio)
+3. [rtaudio](https://github.com/thestk/rtaudio)
