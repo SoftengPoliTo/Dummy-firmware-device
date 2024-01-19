@@ -24,7 +24,7 @@ void writeOnDrive() {
     return;
 }
 
-size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
+size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* output) {
     size_t total_size = size * nmemb;
     output->append(static_cast<char*>(contents), total_size);
     return total_size;
@@ -40,7 +40,7 @@ void accessNetwork() {
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, "https://www.rust-lang.org");
 
-        std::string body;
+        string body;
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &body);
 
@@ -49,17 +49,19 @@ void accessNetwork() {
         if (res != CURLE_OK) {
             fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
         } else {
-            std::cout << "body = " << body << std::endl;
+            cout << "body = " << body << endl;
         }
         curl_easy_cleanup(curl);
     }
     curl_global_cleanup();
 }
 
-void accessWebcam(const std::string& webcam_path) {
+void accessWebcam(const string& webcam_path) {
     VideoCapture cap(webcam_path);
-    if (!cap.isOpened()) {
-        std::cerr << "Error opening webcam." << std::endl;
+
+    // Creating the GStreamer pipeline
+    if (!cap.open(webcam_path, CAP_GSTREAMER)) {
+        cerr << "Error creating GStreamer pipeline." << endl;
         return;
     }
 
@@ -74,17 +76,20 @@ void accessWebcam(const std::string& webcam_path) {
 
         // Check if the frame is valid
         if (frame.empty()) {
-            std::cerr << "Error capturing frame." << std::endl;
+            cerr << "Error capturing frame." << endl;
             return;
         }
     }
+
+    this_thread::sleep_for(chrono::milliseconds(500));
+
     cap.release();
     destroyAllWindows();
 }
 
 // Function for generating a sinusoidal signal
 double generateSinusoidal(double sampleRate, double frequency, double time) {
-    return std::sin(2.0 * PI * frequency * time / sampleRate);
+    return sin(2.0 * PI * frequency * time / sampleRate);
 }
 
 // Callback function for audio output
@@ -105,7 +110,7 @@ int audioCallback(void* outputBuffer, void*, unsigned int nBufferFrames,
 void accessAudioDriver() {
     RtAudio audio;
     if (audio.getDeviceCount() < 1) {
-        std::cerr << "No audio devices available." << std::endl;
+        cerr << "No audio devices available." << endl;
     }
 
     // Set the audio configuration
@@ -121,18 +126,18 @@ void accessAudioDriver() {
                          &audioCallback, &sampleRate);
         audio.startStream();
     } catch (RtAudioError& e) {
-        std::cerr << "Error: " << e.getMessage() << std::endl;
+        cerr << "Error: " << e.getMessage() << endl;
     }
 
     // Wait a second to hear the sound
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    this_thread::sleep_for(chrono::seconds(1));
 
     // Stop and close the audio stream
     try {
         audio.stopStream();
         audio.closeStream();
     } catch (RtAudioError& e) {
-        std::cerr << "Error: " << e.getMessage() << std::endl;
+        cerr << "Error: " << e.getMessage() << endl;
     }
     return;
 }

@@ -38,9 +38,14 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 
 1. Build the project using Meson:
    ```bash
-   meson build
+   # Navigate to the project directory
+   cd /path/to/your/project/libfakedevice-cpp
+
+   # Configure and install dependencies and project.
+   env CXX=clang++ meson setup build # to use clang as compiler
    cd build
    ninja
+   ninja install
    ```
 2. Run the project:
    ```bash
@@ -50,5 +55,5 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 ## Dependencies
 
 1. [libcurl](https://github.com/curl/curl)
-2. [OpenCV](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html)
+2. [opencv](https://github.com/opencv/opencv)
 3. [RtAudio](https://github.com/thestk/rtaudio)

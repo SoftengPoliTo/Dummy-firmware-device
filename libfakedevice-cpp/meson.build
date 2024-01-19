@@ -13,6 +13,7 @@ flags = [
     '-pedantic'
 ]
 
+# Configuring inclusion directories.
 include_directories('include')
 
 sources = [
@@ -21,16 +22,15 @@ sources = [
   'src/fake-firmware.cpp',
 ]
 
-libcurl_dep = dependency('libcurl')
-opencv_dep = dependency('opencv4')
-rtaudio_dep = dependency('rtaudio')
+# Declaration of external dependencies with automatic installation
+libcurl_dep = dependency('libcurl', required: true)
+opencv_dep = dependency('opencv4', required: true)
+rtaudio_dep = dependency('rtaudio', required: true)
 
+# Declaration of executable and dependencies.
 fake_firmware = executable (
     'libfakedevice',
     sources,
     dependencies: [libcurl_dep, opencv_dep, rtaudio_dep],
     install: true
 )
-
-# meson setup --wipe builddir
-# meson compile -C builddir
