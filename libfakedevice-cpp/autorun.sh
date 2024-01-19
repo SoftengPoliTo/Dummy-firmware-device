@@ -22,6 +22,17 @@ else
     echo "Clang++ already installed."
 fi
 
+# Check if pkg-config is already installed
+if ! command -v pkg-config &> /dev/null
+then
+    echo "Pkg-config not found. Installation in progress..."
+    # Install Pkg-config
+    sudo apt-get update
+    sudo apt-get install pkg-config
+else
+    echo "Pkg-config already installed."
+fi
+
 # Configure and compile the project with Meson and Ninja
 echo "Project configuration and compilation..."
 env CXX=clang++ meson setup build
