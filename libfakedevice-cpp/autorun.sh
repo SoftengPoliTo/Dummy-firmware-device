@@ -7,7 +7,9 @@ then
     # Install Meson
     sudo apt-get update
     sudo apt-get install meson
+    sudo meson wrap update-db
 else
+    sudo meson wrap update-db
     echo "Meson already installed."
 fi
 
@@ -20,17 +22,6 @@ then
     sudo apt-get install clang
 else
     echo "Clang++ already installed."
-fi
-
-# Check if pkg-config is already installed
-if ! command -v pkg-config &> /dev/null
-then
-    echo "Pkg-config not found. Installation in progress..."
-    # Install Pkg-config
-    sudo apt-get update
-    sudo apt-get install pkg-config
-else
-    echo "Pkg-config already installed."
 fi
 
 # Configure and compile the project with Meson and Ninja
