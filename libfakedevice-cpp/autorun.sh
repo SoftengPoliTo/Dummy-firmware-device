@@ -29,11 +29,3 @@ echo "Project configuration and compilation..."
 env CXX=clang++ meson setup build
 cd build
 ninja
-
-# Check whether the operation was completed successfully
-if [ $? -eq 0 ]
-then
-    echo "Compilation completed successfully."
-else
-    echo "Error during compilation."
-fi

@@ -1,90 +1,37 @@
-#include <fstream>
-#include <iostream>
-#include <cmath>
-#include <thread>
-#include "RtAudio.h"
-#include <curl/curl.h>
-#include <opencv2/opencv.hpp>
-#include "../include/features.h"
+#include "include/feature.h"
 
 using namespace std;
-using namespace cv;
 
 constexpr double PI = 3.14159265358979323846;
 
 void writeOnDrive() {
+    // Open a file named "foo.txt" for writing in binary mode
     ofstream file("foo.txt", ios::out | ios::binary);
+    // Check if the file is successfully opened
     if (file.is_open()) {
         file.write("Hello, world!", 13);
         file.close();
+        cout << "Successful writing to file!" << endl;
     } else {
+        // Print an error message if unable to open the file
         cerr << "Unable to open file for writing!" << endl;
     }
-
     return;
 }
 
-size_t WriteCallback(void* contents, size_t size, size_t nmemb, string* output) {
-    size_t total_size = size * nmemb;
-    output->append(static_cast<char*>(contents), total_size);
-    return total_size;
-}
-
 void accessNetwork() {
-    CURL* curl;
-    CURLcode res;
+    // Make a GET request to Rust web page
+    auto response = cpr::Get(cpr::Url{"https://www.rust-lang.org/"});
 
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl = curl_easy_init();
-
-    if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, "https://www.rust-lang.org");
-
-        string body;
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &body);
-
-        res = curl_easy_perform(curl);
-
-        if (res != CURLE_OK) {
-            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
-        } else {
-            cout << "body = " << body << endl;
-        }
-        curl_easy_cleanup(curl);
+    // Check for errors
+    if (response.status_code == 200) {
+        // Print the body of the response
+        cout << "body = " << response.text << endl;
+    } else {
+        // Handle error
+        cerr << "Error accessing network: ";
+        cerr << "HTTP error code: " << response.status_code << endl;
     }
-    curl_global_cleanup();
-}
-
-void accessWebcam(const string& webcam_path) {
-    VideoCapture cap(webcam_path);
-
-    // Creating the GStreamer pipeline
-    if (!cap.open(webcam_path, CAP_GSTREAMER)) {
-        cerr << "Error creating GStreamer pipeline." << endl;
-        return;
-    }
-
-    // Configure resolution and frame format
-    cap.set(CAP_PROP_FRAME_WIDTH, 640);
-    cap.set(CAP_PROP_FRAME_HEIGHT, 480);
-
-    // Capture 10 frames from the webcam
-    for (int i = 0; i < 10; ++i) {
-        Mat frame;
-        cap >> frame; 
-
-        // Check if the frame is valid
-        if (frame.empty()) {
-            cerr << "Error capturing frame." << endl;
-            return;
-        }
-    }
-
-    this_thread::sleep_for(chrono::milliseconds(500));
-
-    cap.release();
-    destroyAllWindows();
 }
 
 // Function for generating a sinusoidal signal
@@ -130,14 +77,55 @@ void accessAudioDriver() {
     }
 
     // Wait a second to hear the sound
-    this_thread::sleep_for(chrono::seconds(1));
+    this_thread::sleep_for(chrono::seconds(2));
 
     // Stop and close the audio stream
     try {
         audio.stopStream();
         audio.closeStream();
+        cout << "Beep played correctly!" << endl;
     } catch (RtAudioError& e) {
         cerr << "Error: " << e.getMessage() << endl;
     }
     return;
+}
+
+void accessWebcam(const char* webcam_path) {
+    // Open the webcam device file
+    int fd = open(webcam_path, O_RDWR);
+    if (fd == -1) {
+        // Handle error if opening the device fails
+        cerr << "Error opening device" << endl;
+        return;
+    }
+
+    // Configure the video format for the webcam
+    v4l2_format format{};
+    format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+    format.fmt.pix = {.width= 640, .height= 480, .pixelformat= V4L2_PIX_FMT_MJPEG};
+
+    if (ioctl(fd, VIDIOC_S_FMT, &format) == -1) {
+        // Handle error if configuring the format fails
+        cerr << "Error configuring format" << endl;
+        close(fd);
+        return;
+    }
+
+    // Set up a buffer for reading video data
+    constexpr int buffer_size = 640 * 480 * 3;
+    char buffer[buffer_size];
+
+    // Read video data from the webcam (for demonstration purposes, read 10 times)
+    for (int i = 0; i < 10; ++i) {
+        ssize_t bytesRead = read(fd, buffer, buffer_size);
+        if (bytesRead == -1) {
+            // Handle error if reading data fails
+            cerr << "Error reading data" << endl;
+            close(fd);
+            return;
+        }
+    }
+    cout << "Nice video!" << endl;
+    // Close the webcam device file
+    close(fd);
 }

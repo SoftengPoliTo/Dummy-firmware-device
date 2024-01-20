@@ -73,19 +73,15 @@ It is important to note that although the compilation procedure can be automated
 
 Should Meson encounter difficulties in proceeding with the download and installation of the various dependencies, it is recommended that you manually run the following commands in order to install the libraries used on your system.
 ```bash
-# Command to install libcurl library
-sudo apt-get update
-sudo apt-get install libcurl4-openssl-dev
-
-# Command to install OpenCV library version 4
-sudo apt-get install libopencv-dev
+# Command to install cpr library
+sudo apt update
+sudo apt install curl libcurl4-openssl-dev openssl
 
 # Command to install RtAudio library
-sudo apt-get install librtaudio-dev
+sudo apt install librtaudio-dev
 ```
 
 ## Dependencies
 
-1. [libcurl](https://github.com/curl/curl)
-2. [opencv](https://github.com/opencv/opencv)
-3. [rtaudio](https://github.com/thestk/rtaudio)
+1. [cpr](https://github.com/libcpr/cpr)
+2. [rtaudio](https://github.com/thestk/rtaudio)

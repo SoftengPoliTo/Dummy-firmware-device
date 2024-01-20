@@ -2,7 +2,7 @@ project(
     'libfakedevice-cpp', 
     'cpp',
     license: 'MIT',
-    meson_version: '>= 0.49.0',
+    meson_version: '>= 0.53.0',
     default_options: ['cpp_std=c++17', 'warning_level=1'],
     version: '0.1.0'
     )
@@ -17,20 +17,19 @@ inc_dirs = include_directories('include')
 
 sources = [
   'src/device.cpp',
-  'src/features.cpp',
+  'src/feature.cpp',
   'src/fake-firmware.cpp',
 ]
 
 # Declaration of external dependencies
-curl_dep = dependency('libcurl')
-rtaudio_dep = dependency('rtaudio')
-opencv_dep = dependency('opencv')
+cpr_dep = dependency('cpr', fallback : ['cpr'])
+rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'])
 
 # Declaration of executable and dependencies.
 fake_firmware = executable (
     'libfakedevice',
     sources,
     include_directories: inc_dirs,
-    dependencies: [curl_dep, opencv_dep, rtaudio_dep],
+    dependencies: [cpr_dep, rtaudio_dep],
     install: true
 )

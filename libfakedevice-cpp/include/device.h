@@ -2,25 +2,20 @@
 #define DEVICE_H
 
 /**
- * @file device.h
- * @brief Declarations for lamp control.
- */
-
-/**
- * @brief Turns on the lamp.
- *
- * This function turns on the lamp.
- *
- * @return true if the lamp is successfully turned on, otherwise false.
+ * Turns on the lamp.
+ * 
+ * This function turns on the lamp and returns a boolean value.
+ * 
+ * @return always True.
  */
 bool turnLampOn();
 
 /**
- * @brief Turns off the lamp.
- *
- * This function turns off the lamp.
- *
- * @return true if the lamp is successfully turned off, otherwise false.
+ * Turns off the lamp.
+ * 
+ * This function turns off the lamp and returns a boolean value.
+ * 
+ * @return always False.
  */
 bool turnLampOff(); 
 
