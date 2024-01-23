@@ -17,11 +17,7 @@ This C project, **libfakedevice-c**, provides functionalities for device control
 ### 2. Features (`feature.h` and `feature.c`)
 
 #### `writeOnDrive()`
-- Writes a new file named 
-```plaintext 
-foo.txt
-``` 
-in the current directory.
+- Writes a new file named `foo.txt` in the current directory.
 
 #### `accessNetwork()`
 - Accesses the network and downloads the body of the Rust programming language webpage.
