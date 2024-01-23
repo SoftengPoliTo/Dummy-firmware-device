@@ -1,0 +1,80 @@
+name: CI-Build
+
+on:
+    push:
+      paths:
+        - 'src/**'
+        - 'include/**'
+        - 'meson.build'
+    pull_request:
+      paths:
+        - 'src/**'
+        - 'include/**'
+        - 'meson.build'
+
+jobs:
+  build-cpp:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./libfakedevice-cpp
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install meson clang
+
+    - name: Build C++ project
+      run: |
+        sudo meson wrap update-db
+        env CXX=clang++ meson setup build
+        cd build
+        ninja
+
+  build-c:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./libfakedevice-c
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install meson clang
+
+    - name: Build C project
+      run: |
+        sudo meson wrap update-db
+        env CC=clang meson setup build
+        cd build
+        ninja
+
+  build-rust:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./libfakedevice
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Build Rust project
+        run: |
+          cargo build

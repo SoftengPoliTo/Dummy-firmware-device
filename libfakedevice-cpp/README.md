@@ -15,10 +15,10 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 - Turns off the lamp.
 - Returns `false` if the lamp is successfully turned off.
 
-### 2. Features (`features.h` and `features.cpp`)
+### 2. Features (`feature.h` and `feature.cpp`)
 
 #### `writeOnDrive()`
-- Writes a new file named "foo.txt" in the current directory.
+- Writes a new file named `foo.txt` in the current directory.
 
 #### `accessNetwork()`
 - Accesses the network and downloads the body of the Rust programming language webpage.
@@ -34,54 +34,52 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 - Integrates and utilizes functionalities from both `device` and `features`.
 - Demonstrates the combined usage of features in a simulated firmware.
 
-## Automatic Build 
+## Dependencies
 
-The complete compilation procedure can be started by running `./autorun.sh`. This script will take care of the necessary installations, including Meson (used to orchestrate the build process) and Clang++ (used as the compiler), if they are not already present in the operating system. Next, the process will continue with configuration and, optionally, installation of dependencies, followed by the compilation of the project itself.
+Before building and running the project, ensure you have the following dependencies installed on your system.
 
-To make changes to the code and subsequently recompile it, simply run the `ninja` command within the build directory.
+### Meson
 
-After the build process, you can run the product file by accessing to the build folder and running `./libfakedevice`.
+Meson is used as the build system for this project. To install Meson, run the following commands:
 
-## Manual Build
-
-It is important to note that although the compilation procedure can be automated to simplify the process, the portability of execution may be affected by the diversity of operating environments and system permissions. Therefore, becoming familiar with the manual installation procedure is advantageous, as it provides a deeper understanding of specific dependencies and system-specific configurations.
-
-1. Install Meson and CLang:
-   ```bash
-   # Meson installation.
-   sudo apt-get update
-   sudo apt-get install meson
-
-   # clang installation.
-   sudo apt-get update
-   sudo apt-get install clang
-   ```
-2. Build the project using Meson:
-   ```bash
-   # Navigate to the project directory
-   cd /path/to/your/project/libfakedevice-cpp
-
-   # Configure and install dependencies and project.
-   env CXX=clang++ meson setup build 
-   cd build
-   ninja
-   ```
-3. Run the project:
-   ```bash
-    ./libfakedevice
-   ```
-
-Should Meson encounter difficulties in proceeding with the download and installation of the various dependencies, it is recommended that you manually run the following commands in order to install the libraries used on your system.
 ```bash
-# Command to install cpr library
+sudo apt update
+sudo apt install meson
+```
+
+The use of the following command is also recommended:
+
+```bash
+sudo meson wrap update-db
+```
+
+to update the dependency database managed by `wrapdb`. `wrapdb` is a Meson component that manages the download and management of dependency packages.
+
+### CLang++
+
+CLang++ is used as the compiler for this project. Install Clang++ using the following commands:
+
+```bash
+sudo apt update
+sudo apt install clang
+```
+
+### Other dependencies
+
+The project relies on the following external libraries:
+
+1. [cpr](https://github.com/libcpr/cpr): Used for network access. Install it using:
+```bash
 sudo apt update
 sudo apt install curl libcurl4-openssl-dev openssl
+```
 
-# Command to install RtAudio library
+2. [rtaudio](https://github.com/thestk/rtaudio): Used for audio generation. Install it using:
+```bash
+sudo apt update
 sudo apt install librtaudio-dev
 ```
 
-## Dependencies
+## Build and Run the project
 
-1. [cpr](https://github.com/libcpr/cpr)
-2. [rtaudio](https://github.com/thestk/rtaudio)
+The complete compilation procedure can be started by running `./autorun.sh`. You can launch the project by running `./libfakedevice_cpp`.
