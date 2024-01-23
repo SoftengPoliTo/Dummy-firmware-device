@@ -28,7 +28,7 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 - Displays an error if the webcam doesn't exist.
 
 #### `accessAudioDriver()`
-- Accesses the audio driver and produces a one-second beep sound.
+- Accesses the audio driver and produces a two-seconds beep sound.
 
 ### 3. Fake Firmware (`fake-firmware.cpp`)
 - Integrates and utilizes functionalities from both `device` and `features`.
