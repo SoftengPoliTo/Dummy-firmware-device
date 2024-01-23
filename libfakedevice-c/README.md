@@ -35,33 +35,7 @@ This C project, **libfakedevice-c**, provides functionalities for device control
 
 ## Dependencies
 
-Before building and running the project, ensure you have the following dependencies installed on your system.
-
-### Meson
-
-Meson is used as the build system for this project. To install Meson, run the following commands:
-
-```bash
-sudo apt update
-sudo apt install meson
-```
-
-The use of the following command is also recommended:
-
-```bash
-sudo meson wrap update-db
-```
-
-to update the dependency database managed by `wrapdb`. `wrapdb` is a Meson component that manages the download and management of dependency packages.
-
-### CLang++
-
-CLang++ is used as the compiler for this project. Install Clang++ using the following commands:
-
-```bash
-sudo apt update
-sudo apt install clang
-```
+Before building and running the project, make sure that `Meson` and `CLang` are installed on your system. In particular, `Meson` (https://mesonbuild.com/) is used as a tool to build the project, while `CLang` (https://clang.llvm.org/) is used as a compiler for the project. We also suggest updating the `wrapdb` (https://mesonbuild.com/Wrap-dependency-system-manual.html) used by Meson to retrieve the dependencies presented in the next section.
 
 ### Other dependencies
 

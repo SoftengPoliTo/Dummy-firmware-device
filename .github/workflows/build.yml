@@ -28,13 +28,10 @@ jobs:
       run: |
         sudo apt update
         sudo apt install meson clang
+        sudo meson wrap update-db
 
     - name: Build C++ project
-      run: |
-        sudo meson wrap update-db
-        env CXX=clang++ meson setup build
-        cd build
-        ninja
+      run: ./autorun.sh
 
   build-c:
     runs-on: ubuntu-latest
@@ -51,13 +48,10 @@ jobs:
       run: |
         sudo apt update
         sudo apt install meson clang
+        sudo meson wrap update-db
 
     - name: Build C project
-      run: |
-        sudo meson wrap update-db
-        env CC=clang meson setup build
-        cd build
-        ninja
+      run: ./autorun.sh
 
   build-rust:
     runs-on: ubuntu-latest
