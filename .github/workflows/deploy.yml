@@ -16,6 +16,7 @@ jobs:
               run: |
                 sudo apt update
                 sudo apt install meson clang
+                sudo apt install libasound2-dev
 
             - name: Build C++ project
               run: |
@@ -34,17 +35,17 @@ jobs:
 
             - name: Package artifacts
               run: |
-                  cp -r libfakedevice-cpp/build/*.zip binaries/
-                  cp -r libfakedevice-c/build/*.zip binaries/
-                  cp -r libfakedevice/target/debug/libfakedevice* binaries/
+                  cp -r libfakedevice-cpp/build binaries/libfakedevice_cpp
+                  cp -r libfakedevice-c/build binaries binaries/libfakedevice_c
+                  cp -r libfakedevice/target/debug binaries binaries/libfakedevice_rust
         
 
             - name: Create a release
               uses: softprops/action-gh-release@v1
               with:
                 files: |
-                    ./binaries/libfakedevice-cpp/**/*.zip
-                    ./binaries/libfakedevice-c/**/*.zip
-                    ./binaries/libfakedevice/**/*.zip
+                    ./binaries/libfakedevice_cpp
+                    ./binaries/libfakedevice_c
+                    ./binaries/libfakedevice_rust
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
