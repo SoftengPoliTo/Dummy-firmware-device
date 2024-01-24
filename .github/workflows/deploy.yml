@@ -18,10 +18,14 @@ jobs:
                 sudo apt install meson clang
 
             - name: Build C++ project
-              run: ./libfakedevice-cpp/autorun.sh
+              run: |
+                env CXX=clang++ meson setup build
+                ninja -C build
 
             - name: Build C project
-              run: ./libfakedevice-c/autorun.sh
+              run: |
+                env CXX=clang++ meson setup build
+                ninja -C build
 
             - name: Build Rust project
               run: |
