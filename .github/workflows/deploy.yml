@@ -38,9 +38,9 @@ jobs:
                     mkdir -p binaries/libfakedevice_cpp
                     mkdir -p binaries/libfakedevice_c
                     mkdir -p binaries/libfakedevice_rust
-                    cp -r libfakedevice-cpp/build/* binaries/libfakedevice_cpp
-                    cp -r libfakedevice-c/build/* binaries/libfakedevice_c
-                    cp -r libfakedevice/target/debug/* binaries/libfakedevice_rust
+                    cp -r ./libfakedevice-cpp/build/** ./binaries/libfakedevice_cpp
+                    cp -r ./libfakedevice-c/build/** ./binaries/libfakedevice_c
+                    cp -r ./libfakedevice/target/debug/** ./binaries/libfakedevice_rust
 
             - name: Create a release
               uses: softprops/action-gh-release@v1
