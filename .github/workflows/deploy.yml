@@ -16,7 +16,6 @@ jobs:
               run: |
                 sudo apt update
                 sudo apt install meson clang
-                sudo meson wrap update
 
             - name: Build C++ project
               run: ./libfakedevice-cpp/autorun.sh
