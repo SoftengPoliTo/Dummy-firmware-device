@@ -19,13 +19,13 @@ jobs:
 
             - name: Build C++ project
               run: |
-                env CXX=clang++ meson setup build
-                ninja -C build
+                cd libfakedevice-cpp
+                ./autorun.sh
 
             - name: Build C project
               run: |
-                env CXX=clang++ meson setup build
-                ninja -C build
+                cd libfakedevice-c
+                ./autorun.sh
 
             - name: Build Rust project
               run: |
