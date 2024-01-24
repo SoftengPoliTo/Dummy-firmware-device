@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+    push:
+        branches:
+            - '*'
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install dependencies
+              run: |
+                sudo apt update
+                sudo apt install meson clang
+                sudo meson wrap update-db
+
+            - name: Build C++ project
+              run: ./libfakedevice-cpp/autorun.sh
+
+            - name: Build C project
+              run: ./libfakedevice-c/autorun.sh
+
+            - name: Build Rust project
+              run: |
+                cd libfakedevice
+                cargo build
+
+            - name: Package artifacts
+              run: |
+                  cp -r libfakedevice-cpp/build/*.zip binaries/
+                  cp -r libfakedevice-c/build/*.zip binaries/
+                  cp -r libfakedevice/target/debug/libfakedevice* binaries/
+        
+
+            - name: Create a release
+              uses: softprops/action-gh-release@v1
+              with:
+                files: |
+                    ./binaries/libfakedevice-cpp/**/*.zip
+                    ./binaries/libfakedevice-c/**/*.zip
+                    ./binaries/libfakedevice/**/*.zip
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
