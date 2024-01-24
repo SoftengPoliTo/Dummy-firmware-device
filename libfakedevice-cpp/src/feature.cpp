@@ -1,4 +1,4 @@
-#include "include/feature.h"
+#include "../include/feature.h"
 
 using namespace std;
 
@@ -72,8 +72,8 @@ void accessAudioDriver() {
         audio.openStream(&parameters, nullptr, RTAUDIO_FLOAT64, sampleRate, &bufferFrames,
                          &audioCallback, &sampleRate);
         audio.startStream();
-    } catch (RtAudioError& e) {
-        cerr << "Error: " << e.getMessage() << endl;
+    } catch (RtAudioErrorType& e) {
+        cerr << "Audio playback failure." << endl;
     }
 
     // Wait a second to hear the sound
@@ -84,8 +84,8 @@ void accessAudioDriver() {
         audio.stopStream();
         audio.closeStream();
         cout << "Beep played correctly!" << endl;
-    } catch (RtAudioError& e) {
-        cerr << "Error: " << e.getMessage() << endl;
+    } catch (RtAudioErrorType& e) {
+        cerr << "Failure to close the audio stream." << endl;
     }
     return;
 }

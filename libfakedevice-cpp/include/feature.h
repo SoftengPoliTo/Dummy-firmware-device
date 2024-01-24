@@ -1,6 +1,7 @@
 #ifndef FEATURE_H
 #define FEATURE_H
 
+#include <fstream> 
 #include <iostream>
 #include <cmath>
 #include <thread>

@@ -22,6 +22,7 @@ sources = [
 ]
 
 # Declaration of external dependencies
+libcurl_dep = dependency('libcurl', fallback: ['libcurl'])
 cpr_dep = dependency('cpr', fallback : ['cpr'])
 rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'])
 

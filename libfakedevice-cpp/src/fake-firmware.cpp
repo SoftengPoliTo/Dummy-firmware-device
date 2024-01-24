@@ -23,7 +23,7 @@ int main(){
     this_thread::sleep_for(chrono::seconds(2));
 
     // Access webcam
-    accessWebcam("/dev/video1");
+    accessWebcam("/dev/video0");
     
     return 0;
 }
