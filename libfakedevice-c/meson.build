@@ -1,5 +1,5 @@
 project(
-    'libfakedevice-cpp', 
+    'libfakedevice-c', 
     'c',
     license: 'MIT',
     meson_version: '>= 0.53.0',
