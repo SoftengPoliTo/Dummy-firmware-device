@@ -28,7 +28,7 @@ rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'])
 
 # Declaration of executable and dependencies.
 fake_firmware = executable (
-    'libfakedevice_cpp',
+    'fake-firmware-cpp',
     sources,
     include_directories: inc_dirs,
     dependencies: [cpr_dep, rtaudio_dep],

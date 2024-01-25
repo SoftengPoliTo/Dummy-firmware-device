@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Create evetually the folder to contain the build
-mkdir -p ../binaries/libfakedevice-cpp
+# Create evetually the folder to contain the binary
+mkdir -p ../binaries
 
 # Configure and compile the project with Meson and Ninja
 echo "Project configuration and compilation..."
 env CXX=clang++ meson setup build
 ninja -C build
 
-# Copy the produced build to the binary folder
-cp -r build/** ../binaries/libfakedevice-cpp/
+# Copy the produced binary to the binary folder
+cp build/fake-firmware-cpp ../binaries

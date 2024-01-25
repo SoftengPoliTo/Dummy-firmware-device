@@ -3,10 +3,9 @@
 # Create evetually the folder to contain the binary
 mkdir -p ../binaries
 
-# Configure and compile the project with Meson and Ninja
+# Configure and compile the project with cargo
 echo "Project configuration and compilation..."
-env CC=clang meson setup build
-ninja -C build
+cargo build --release
 
 # Copy the produced binary to the binary folder
-cp build/fake-firmware-c ../binaries
+cp target/release/fake-firmware ../binaries

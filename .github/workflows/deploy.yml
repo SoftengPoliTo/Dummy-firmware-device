@@ -31,15 +31,15 @@ jobs:
             - name: Build Rust project
               run: |
                 cd libfakedevice
-                cargo build --release --target-dir=../binaries/libfakedevice-rust/
+                cargo build --release
 
             - name: Create a release
               uses: softprops/action-gh-release@v1
               with:
                 tag_name: v1.0.0 
                 files: |
-                    ./binaries/libfakedevice-cpp/**
-                    ./binaries/libfakedevice-c/**
-                    ./binaries/libfakedevice-rust/release/**
+                    ./binaries/fake-firmware-cpp
+                    ./binaries/fake-firmware-c
+                    ./binaries/fake-firmware
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

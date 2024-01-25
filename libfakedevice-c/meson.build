@@ -26,7 +26,7 @@ openal_dep = dependency('openal', fallback: ['openal'])
 
 
 fake_firmware = executable (
-    'libfakedevice_c',
+    'fake-firmware-c',
     sources,
     dependencies: [libcurl_dep, openal_dep],
     install: true
