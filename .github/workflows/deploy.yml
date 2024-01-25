@@ -31,24 +31,15 @@ jobs:
             - name: Build Rust project
               run: |
                 cd libfakedevice
-                cargo build
-
-            - name: Package artifacts
-              run: |
-                    mkdir -p binaries/libfakedevice_cpp
-                    mkdir -p binaries/libfakedevice_c
-                    mkdir -p binaries/libfakedevice_rust
-                    cp -r ./libfakedevice-cpp/build/** ./binaries/libfakedevice_cpp
-                    cp -r ./libfakedevice-c/build/** ./binaries/libfakedevice_c
-                    cp -r ./libfakedevice/target/debug/** ./binaries/libfakedevice_rust
+                cargo build --release --target-dir=../binaries/libfakedevice-rust/
 
             - name: Create a release
               uses: softprops/action-gh-release@v1
               with:
                 tag_name: v1.0.0 
                 files: |
-                    ./binaries/libfakedevice_cpp
-                    ./binaries/libfakedevice_c
-                    ./binaries/libfakedevice_rust
+                    ./binaries/libfakedevice-cpp/*
+                    ./binaries/libfakedevice-c/*
+                    ./binaries/libfakedevice-rust/*
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
