@@ -40,6 +40,6 @@ jobs:
                 files: |
                     ./binaries/libfakedevice-cpp/*
                     ./binaries/libfakedevice-c/*
-                    ./binaries/libfakedevice-rust/*
+                    ./binaries/libfakedevice-rust/release/*
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
