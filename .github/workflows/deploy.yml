@@ -31,7 +31,7 @@ jobs:
             - name: Build Rust project
               run: |
                 cd libfakedevice
-                cargo build --release
+                ./autorun.sh
 
             - name: Create a release
               uses: softprops/action-gh-release@v1
