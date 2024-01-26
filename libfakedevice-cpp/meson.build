@@ -22,9 +22,9 @@ sources = [
 ]
 
 # Declaration of external dependencies
-libcurl_dep = dependency('libcurl', fallback: ['libcurl'])
-cpr_dep = dependency('cpr', fallback : ['cpr'])
-rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'])
+libcurl_dep = dependency('libcurl', fallback: ['libcurl'], static: true)
+cpr_dep = dependency('cpr', fallback : ['cpr'], static: true)
+rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'], static: true)
 
 # Declaration of executable and dependencies.
 fake_firmware = executable (

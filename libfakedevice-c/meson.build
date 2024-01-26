@@ -21,8 +21,8 @@ sources = [
   'src/fake-firmware.c',
 ]
 
-libcurl_dep = dependency('libcurl', fallback: ['libcurl'])
-openal_dep = dependency('openal', fallback: ['openal'])
+libcurl_dep = dependency('libcurl', fallback: ['libcurl'], static: true)
+openal_dep = dependency('openal', fallback: ['openal'], static: true)
 
 
 fake_firmware = executable (
