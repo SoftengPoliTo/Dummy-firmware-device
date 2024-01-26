@@ -78,7 +78,6 @@ void accessWebcam(const char* webcam_path) {
             return;
         }
     }
-    printf("Nice video!\n");
     close(fd);
 }
 
@@ -184,4 +183,3 @@ void accessAudioDriver() {
 
     return;
 }
-

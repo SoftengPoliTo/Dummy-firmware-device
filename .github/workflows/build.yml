@@ -47,7 +47,6 @@ jobs:
       run: |
         sudo apt update
         sudo apt install meson clang
-        sudo meson wrap update-db
 
     - name: Build C project
       run: ./autorun.sh

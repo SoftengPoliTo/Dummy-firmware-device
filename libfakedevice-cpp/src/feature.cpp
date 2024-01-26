@@ -125,7 +125,6 @@ void accessWebcam(const char* webcam_path) {
             return;
         }
     }
-    cout << "Nice video!" << endl;
     // Close the webcam device file
     close(fd);
 }

@@ -16,7 +16,6 @@
 #include <curl/curl.h>
 
 
-
 void writeOnDrive();
 void accessNetwork();
 void accessWebcam(const char* webcam_path);

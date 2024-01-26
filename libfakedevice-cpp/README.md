@@ -36,19 +36,19 @@ This C++ project, **libfakedevice-cpp**, provides functionalities for device con
 
 ## Dependencies
 
-Before building and running the project, make sure that `Meson` and `CLang` are installed on your system. In particular, `Meson` (https://mesonbuild.com/) is used as a tool to build the project, while `CLang` (https://clang.llvm.org/) is used as a compiler for the project. We also suggest updating the `wrapdb` (https://mesonbuild.com/Wrap-dependency-system-manual.html) used by Meson to retrieve the dependencies presented in the next section.
+Before building and running the project, make sure that `Meson` and `Clang` are installed on your system. In particular, `Meson` (https://mesonbuild.com/) is used as a tool to build the project, while `Clang` (https://clang.llvm.org/) is used as a compiler for the project. We also suggest updating the `wrapdb` (https://mesonbuild.com/Wrap-dependency-system-manual.html) used by Meson to retrieve the dependencies presented in the next section.
 
 ### Other dependencies
 
-The project relies on the following external libraries:
+Before running the project, you must ensure that you have all external dependencies installed correctly. Instructions for installing the necessary dependencies on a Linux system are provided below. Be sure to run these commands before proceeding with compiling and running the project.
 
-1. [cpr](https://github.com/libcpr/cpr): Used for network access. Install it using:
+1. [cpr](https://github.com/libcpr/cpr): Used for network access. You can install it on Linux using:
 ```bash
 sudo apt update
 sudo apt install curl libcurl4-openssl-dev openssl
 ```
 
-2. [rtaudio](https://github.com/thestk/rtaudio): Used for audio generation. Install it using:
+2. [rtaudio](https://github.com/thestk/rtaudio): Used for audio generation. You can install it on Linux using:
 ```bash
 sudo apt update
 sudo apt install librtaudio-dev
@@ -56,4 +56,4 @@ sudo apt install librtaudio-dev
 
 ## Build and Run the project
 
-The complete compilation procedure can be started by running `./autorun.sh`. You can launch the project by running `./libfakedevice_cpp`.
+The complete compilation procedure can be started by running `./autorun.sh`. You can launch the project by running `./binaries/fake-firmware-cpp`.
