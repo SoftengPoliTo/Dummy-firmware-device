@@ -1,0 +1,74 @@
+name: CI-Build
+
+on:
+    push:
+      branches:
+        - main
+    pull_request:
+      branches:
+        - main
+
+jobs:
+  build-cpp:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ./libfakedevice-cpp
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install meson clang
+
+    - name: Build C++ project
+      run: ./autorun.sh
+
+  build-c:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./libfakedevice-c
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install meson clang
+        sudo apt install libasound2-dev
+
+    - name: Build C project
+      run: ./autorun.sh
+
+  build-rust:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./libfakedevice
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install libasound2-dev
+
+      - name: Build Rust project
+        run: |
+          ./autorun.sh
