@@ -1,0 +1,53 @@
+name: Deploy
+
+on:
+    push:
+        branches:
+            - 'main'
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install dependencies
+              run: |
+                sudo apt update
+                sudo apt install meson clang
+                sudo apt install libasound2-dev
+
+            - name: Build C++ project
+              run: |
+                cd libfakedevice-cpp
+                ./autorun.sh
+
+            - name: Build C project
+              run: |
+                cd libfakedevice-c
+                ./autorun.sh
+
+            - name: Build Rust project
+              run: |
+                cd libfakedevice
+                ./autorun.sh
+
+            - name: Strip C++ binary
+              run: |
+                strip ./libfakedevice-cpp/build/fake-firmware-cpp
+
+            - name: Strip C binary
+              run: |
+                strip ./libfakedevice-c/build/fake-firmware-c
+
+            - name: Create a release
+              uses: softprops/action-gh-release@v1
+              with:
+                tag_name: v1.0.0
+                files: |
+                    ./libfakedevice-cpp/build/fake-firmware-cpp
+                    ./libfakedevice-c/build/fake-firmware-c
+                    ./libfakedevice/target/release/fake-firmware
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
