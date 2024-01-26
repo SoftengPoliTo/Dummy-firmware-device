@@ -5,8 +5,12 @@
  * Turns on the lamp.
  * 
  * This function turns on the lamp and returns a boolean value.
+ * @return True.
  * 
- * @return always True.
+ * @note Hazards
+ * - Fire
+ * - LogEnergyConsumption
+ * - EnergyConsumption
  */
 bool turnLampOn();
 
@@ -14,8 +18,10 @@ bool turnLampOn();
  * Turns off the lamp.
  * 
  * This function turns off the lamp and returns a boolean value.
- * 
- * @return always False.
+ * @return False.
+ *
+ * @note Hazards
+ * - LogEnergyConsumption
  */
 bool turnLampOff(); 
 
