@@ -33,6 +33,14 @@ jobs:
                 cd libfakedevice
                 ./autorun.sh
 
+            - name: Strip C++ binary
+              run: |
+                strip ./binaries/fake-firmware-cpp
+
+            - name: Strip C binary
+              run: |
+                strip ./binaries/fake-firmware-c
+
             - name: Create a release
               uses: softprops/action-gh-release@v1
               with:
