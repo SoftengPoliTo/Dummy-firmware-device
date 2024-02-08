@@ -8,9 +8,17 @@ use libfakedevice::features::write_on_drive;
 use libfakedevice::device::turn_lamp_off;
 use libfakedevice::device::turn_lamp_on;
 
-// All features methods which must be searched within the firmware binary
-// in order to produce the manifest information.
-async fn features_apis() {
+// A method defined directly in the firmware and not in the library.
+pub fn write_on_drive_from_firmware() -> std::io::Result<()> {
+    use std::fs::File;
+    use std::io::prelude::*;
+
+    let mut file = File::create("foo_firmware.txt")?;
+    file.write_all(b"Hello, world!")?;
+    Ok(())
+}
+
+pub async fn features_apis() {
     // Write something on drive
     write_on_drive().unwrap();
 
@@ -34,6 +42,8 @@ async fn device_apis() {
 
 #[tokio::main]
 async fn main() {
+    write_on_drive_from_firmware().unwrap();
+
     features_apis().await;
 
     device_apis().await;
