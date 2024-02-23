@@ -42,6 +42,10 @@ jobs:
               run: |
                 strip ./libfakedevice-cpp/build/fake-firmware-cpp
 
+            - name: Strip Rust binary
+              run: |
+                strip ./libfakedevice-rust/x86_64-unknown-linux-musl/debug/fake-firmware-rust
+
             - name: Strip C binary
               run: |
                 strip ./libfakedevice-c/build/fake-firmware-c
@@ -53,6 +57,6 @@ jobs:
                 files: |
                     ./libfakedevice-cpp/build/fake-firmware-cpp
                     ./libfakedevice-c/build/fake-firmware-c
-                    ./libfakedevice-rust/target/x86_64-unknown-linux-musl/release/fake-firmware
+                    ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
