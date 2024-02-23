@@ -45,7 +45,7 @@ pub fn access_webcam(webcam_path: &str) -> rscam::Result<()> {
     Ok(())
 }
 
-/// Accesses to the audio driver and outputs a beep sound
+/*/// Accesses to the audio driver and outputs a beep sound
 pub fn access_audio_driver() {
     // Retrieve host
     let host = cpal::default_host();
@@ -126,4 +126,4 @@ where
             *sample = value;
         }
     }
-}
+}*/
