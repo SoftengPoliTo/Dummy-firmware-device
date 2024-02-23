@@ -17,6 +17,11 @@ jobs:
                 sudo apt update
                 sudo apt install meson clang
                 sudo apt install libasound2-dev
+                sudo apt install musl-dev musl-tools
+
+            - name: Install Rust dependencies
+              run: |
+                rustup target add x86_64-unknown-linux-musl
 
             - name: Build C++ project
               run: |
@@ -30,8 +35,8 @@ jobs:
 
             - name: Build Rust project
               run: |
-                cd libfakedevice
-                ./autorun.sh
+                cd libfakedevice-rust
+                ./autorun.sh --target=x86_64-unknown-linux-musl
 
             - name: Strip C++ binary
               run: |
@@ -48,6 +53,6 @@ jobs:
                 files: |
                     ./libfakedevice-cpp/build/fake-firmware-cpp
                     ./libfakedevice-c/build/fake-firmware-c
-                    ./libfakedevice/target/release/fake-firmware
+                    ./libfakedevice-rust/target/x86_64-unknown-linux-musl/release/fake-firmware
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
