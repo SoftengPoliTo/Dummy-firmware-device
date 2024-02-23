@@ -10,6 +10,8 @@ edition = "2021"
 reqwest = "0.11.23"
 rscam = { version = "0.5.5", features = ["no_wrapper"] }
 tokio = { version = "1", features = ["full"] }
+
+[target.'cfg(target_env = "musl")'.dependencies]
 openssl = {version = "0.10.64", features = ["vendored"] }
 
 [profile.release]

@@ -44,7 +44,7 @@ jobs:
 
             - name: Strip Rust binary
               run: |
-                strip ./libfakedevice-rust/x86_64-unknown-linux-musl/debug/fake-firmware-rust
+                strip ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust
 
             - name: Strip C binary
               run: |
