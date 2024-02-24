@@ -10,7 +10,8 @@ project(
 cpp = meson.get_compiler('cpp')
 
 flags = [
-    '-pedantic'
+    '-pedantic',
+    '-static'
 ]
 
 inc_dirs = include_directories('include')
@@ -22,7 +23,7 @@ sources = [
 ]
 
 # Declaration of external dependencies
-libcurl_dep = dependency('libcurl', fallback: ['libcurl'], static: true)
+libcurl_dep = dependency('libcurl', fallback: ['libcurl'], static:true)
 cpr_dep = dependency('cpr', fallback : ['cpr'], static: true)
 rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'], static: true)
 
@@ -33,4 +34,5 @@ fake_firmware = executable (
     include_directories: inc_dirs,
     dependencies: [cpr_dep, rtaudio_dep],
     install: true
+    link_args: flags
 )

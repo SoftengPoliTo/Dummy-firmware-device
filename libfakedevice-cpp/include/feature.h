@@ -12,6 +12,7 @@
 #include "RtAudio.h"
 #include <cpr/cpr.h>
 
+
 /**
  * Writes a new file in the current directory.
  * 
@@ -19,7 +20,7 @@
  * and writes the text "Hello, world!" to it. It prints a success message if
  * the operation is successful.
  */
-void writeOnDrive();
+extern "C" void writeOnDrive();
 
 /**
  * Accesses the network and downloads the body of a webpage.
@@ -28,7 +29,7 @@ void writeOnDrive();
  * retrieves the body of the response, and prints it. It handles errors and prints
  * an error message if the HTTP status code is not 200.
  */
-void accessNetwork();
+extern "C" void accessNetwork();
 
 /**
  * Accesses the webcam and extracts some frames.
@@ -39,7 +40,7 @@ void accessNetwork();
  * 
  * @param webcam_path The path to the webcam device file.
  */
-void accessWebcam(const char* webcam_path);
+extern "C" void accessWebcam(const char* webcam_path);
 
 /**
  * Accesses the audio driver and outputs a beep sound.
@@ -48,6 +49,7 @@ void accessWebcam(const char* webcam_path);
  * configure and start an audio stream, and play a sinusoidal beep sound for 2 seconds.
  * It handles errors and prints error messages if any occur during the process.
  */
-void accessAudioDriver();
+extern "C" void accessAudioDriver();
+
 
 #endif // FEATURES_H

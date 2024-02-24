@@ -7,3 +7,4 @@ bool turnLampOn() {
 bool turnLampOff() {
     return false;
 }
+

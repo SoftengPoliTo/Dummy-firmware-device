@@ -12,7 +12,7 @@
  * - LogEnergyConsumption
  * - EnergyConsumption
  */
-bool turnLampOn();
+extern "C" bool turnLampOn();
 
 /**
  * Turns off the lamp.
@@ -23,6 +23,6 @@ bool turnLampOn();
  * @note Hazards
  * - LogEnergyConsumption
  */
-bool turnLampOff(); 
+extern "C" bool turnLampOff(); 
 
 #endif // DEVICE_H

@@ -3,8 +3,7 @@
 using namespace std;
 
 constexpr double PI = 3.14159265358979323846;
-
-void writeOnDrive() {
+extern "C" void writeOnDrive() {
     // Open a file named "foo.txt" for writing in binary mode
     ofstream file("foo.txt", ios::out | ios::binary);
     // Check if the file is successfully opened
@@ -19,7 +18,7 @@ void writeOnDrive() {
     return;
 }
 
-void accessNetwork() {
+extern "C" void accessNetwork() {
     // Make a GET request to Rust web page
     auto response = cpr::Get(cpr::Url{"https://www.rust-lang.org/"});
 
@@ -54,7 +53,7 @@ int audioCallback(void* outputBuffer, void*, unsigned int nBufferFrames,
     return 0;
 }
 
-void accessAudioDriver() {
+extern "C" void accessAudioDriver() {
     RtAudio audio;
     if (audio.getDeviceCount() < 1) {
         cerr << "No audio devices available." << endl;
@@ -90,7 +89,7 @@ void accessAudioDriver() {
     return;
 }
 
-void accessWebcam(const char* webcam_path) {
+extern "C" void accessWebcam(const char* webcam_path) {
     // Open the webcam device file
     int fd = open(webcam_path, O_RDWR);
     if (fd == -1) {
@@ -128,3 +127,4 @@ void accessWebcam(const char* webcam_path) {
     // Close the webcam device file
     close(fd);
 }
+

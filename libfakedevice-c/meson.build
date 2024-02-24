@@ -10,7 +10,8 @@ project(
 c = meson.get_compiler('c')
 
 flags = [
-    '-pedantic'
+    '-pedantic',
+    '-static'
 ]
 
 include_directories('include')
@@ -29,5 +30,6 @@ fake_firmware = executable (
     'fake-firmware-c',
     sources,
     dependencies: [libcurl_dep, openal_dep],
-    install: true
+    install: true,
+    link_args: flags
 )
