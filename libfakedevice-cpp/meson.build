@@ -33,6 +33,6 @@ fake_firmware = executable (
     sources,
     include_directories: inc_dirs,
     dependencies: [cpr_dep, rtaudio_dep],
-    install: true
+    install: true,
     link_args: flags
 )
