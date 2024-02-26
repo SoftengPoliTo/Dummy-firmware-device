@@ -3,6 +3,7 @@
 using namespace std;
 
 constexpr double PI = 3.14159265358979323846;
+
 extern "C" void writeOnDrive() {
     // Open a file named "foo.txt" for writing in binary mode
     ofstream file("foo.txt", ios::out | ios::binary);

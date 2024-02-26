@@ -11,7 +11,6 @@ c = meson.get_compiler('c')
 
 flags = [
     '-pedantic',
-    '-static'
 ]
 
 include_directories('include')

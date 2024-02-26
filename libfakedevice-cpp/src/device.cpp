@@ -1,10 +1,10 @@
 #include "../include/device.h"
 
-bool turnLampOn() {
+extern "C" bool turnLampOn() {
     return true;
 }
 
-bool turnLampOff() {
+extern "C" bool turnLampOff() {
     return false;
 }
 

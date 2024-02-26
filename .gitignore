@@ -2,3 +2,4 @@ target
 subprojects
 libfakedevice-rust/Cargo.lock
 libfakedevice-rust/foo.txt
+.vscode/settings.json

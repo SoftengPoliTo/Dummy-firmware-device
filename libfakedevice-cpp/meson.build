@@ -10,8 +10,7 @@ project(
 cpp = meson.get_compiler('cpp')
 
 flags = [
-    '-pedantic',
-    '-static'
+    '-pedantic'
 ]
 
 inc_dirs = include_directories('include')
