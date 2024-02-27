@@ -1,62 +1,74 @@
 name: Deploy
 
 on:
-    push:
-        branches:
-            - 'main'
+  push:
+    branches:
+      - 'main'
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-            - name: Install dependencies
-              run: |
-                sudo apt update
-                sudo apt install meson clang
-                sudo apt install libasound2-dev
-                sudo apt install musl-dev musl-tools
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install meson clang
+          sudo apt install libasound2-dev
+          sudo apt install musl-dev musl-tools
 
-            - name: Install Rust dependencies
-              run: |
-                rustup target add x86_64-unknown-linux-musl
+      - name: Install Rust dependencies
+        run: |
+          rustup target add x86_64-unknown-linux-musl
 
-            - name: Build C++ project
-              run: |
-                cd libfakedevice-cpp
-                ./autorun.sh
+      - name: Build C++ project
+        run: |
+          cd libfakedevice-cpp
+          ./autorun.sh
 
-            - name: Build C project
-              run: |
-                cd libfakedevice-c
-                ./autorun.sh
+      - name: Build C project
+        run: |
+          cd libfakedevice-c
+          ./autorun.sh
 
-            - name: Build Rust project
-              run: |
-                cd libfakedevice-rust
-                ./autorun.sh --target=x86_64-unknown-linux-musl
+      - name: Build Rust project
+        run: |
+          cd libfakedevice-rust
+          ./autorun.sh --target=x86_64-unknown-linux-musl
 
-            - name: Strip C++ binary
-              run: |
-                strip ./libfakedevice-cpp/build/fake-firmware-cpp
+      - name: Build minimal-firmware
+        run: |
+          cd minimal-libfakedevice-c
+          ./autorun.sh
 
-            - name: Strip Rust binary
-              run: |
-                strip ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust
+      - name: Rename binaries
+        run: |
+          mv ./libfakedevice-cpp/build/fake-firmware-cpp ./fake-firmware-cpp-dynamic
+          mv ./libfakedevice-c/build/fake-firmware-c ./fake-firmware-c-dynamic
+          mv ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust ./fake-firmware-rust-static
+          mv ./minimal-libfakedevice-c/build/minimal-fake-firmware-c ./minimal-fake-firmware-c-static
 
-            - name: Strip C binary
-              run: |
-                strip ./libfakedevice-c/build/fake-firmware-c
+      - name: Strip binaries
+        run: |
+          strip ./fake-firmware-cpp-dynamic -o ./fake-firmware-cpp-dynamic-stripped
+          strip ./fake-firmware-c-dynamic -o ./fake-firmware-c-dynamic-stripped
+          strip ./fake-firmware-rust-static -o ./fake-firmware-rust-static-stripped
+          strip ./minimal-fake-firmware-c-static -o ./minimal-fake-firmware-c-static-stripped
 
-            - name: Create a release
-              uses: softprops/action-gh-release@v1
-              with:
-                tag_name: v0.1.0
-                files: |
-                    ./libfakedevice-cpp/build/fake-firmware-cpp
-                    ./libfakedevice-c/build/fake-firmware-c
-                    ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust
-              env:
-                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create a release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v0.1.0
+          files: |
+            ./fake-firmware-cpp-dynamic
+            ./fake-firmware-c-dynamic
+            ./fake-firmware-rust-static
+            ./minimal-fake-firmware-c-static
+            ./fake-firmware-cpp-dynamic-stripped
+            ./fake-firmware-c-dynamic-stripped
+            ./fake-firmware-rust-static-stripped
+            ./minimal-fake-firmware-c-static-stripped
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

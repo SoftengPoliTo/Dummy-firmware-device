@@ -1,16 +1,16 @@
 project(
-    'libfakedevice-cpp', 
-    'cpp',
-    license: 'MIT',
-    meson_version: '>= 0.53.0',
-    default_options: ['cpp_std=c++17', 'warning_level=1'],
-    version: '0.1.0'
-    )
+  'libfakedevice-cpp',
+  'cpp',
+  license: 'MIT',
+  meson_version: '>= 0.53.0',
+  default_options: ['cpp_std=c++17', 'warning_level=1'],
+  version: '0.1.0'
+)
 
 cpp = meson.get_compiler('cpp')
 
 flags = [
-    '-pedantic'
+  '-pedantic'
 ]
 
 inc_dirs = include_directories('include')
@@ -28,10 +28,10 @@ rtaudio_dep = dependency('rtaudio', fallback: ['rtaudio'], static: true)
 
 # Declaration of executable and dependencies.
 fake_firmware = executable (
-    'fake-firmware-cpp',
-    sources,
-    include_directories: inc_dirs,
-    dependencies: [cpr_dep, rtaudio_dep],
-    install: true,
-    link_args: flags
+  'fake-firmware-cpp',
+  sources,
+  include_directories: inc_dirs,
+  dependencies: [cpr_dep, rtaudio_dep],
+  install: true,
+  link_args: flags
 )
