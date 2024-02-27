@@ -33,7 +33,12 @@ jobs:
           cd libfakedevice-c
           ./autorun.sh
 
-      - name: Build Rust project
+      - name: Build Rust project (dynamic)
+        run: |
+          cd libfakedevice-rust
+          ./autorun.sh
+
+      - name: Build Rust project (static)
         run: |
           cd libfakedevice-rust
           ./autorun.sh --target=x86_64-unknown-linux-musl
@@ -47,6 +52,7 @@ jobs:
         run: |
           mv ./libfakedevice-cpp/build/fake-firmware-cpp ./fake-firmware-cpp-dynamic
           mv ./libfakedevice-c/build/fake-firmware-c ./fake-firmware-c-dynamic
+          mv ./libfakedevice-rust/target/debug/fake-firmware-rust ./fake-firmware-rust-dynamic
           mv ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust ./fake-firmware-rust-static
           mv ./minimal-libfakedevice-c/build/minimal-fake-firmware-c ./minimal-fake-firmware-c-static
 
@@ -54,6 +60,7 @@ jobs:
         run: |
           strip ./fake-firmware-cpp-dynamic -o ./fake-firmware-cpp-dynamic-stripped
           strip ./fake-firmware-c-dynamic -o ./fake-firmware-c-dynamic-stripped
+          strip ./fake-firmware-rust-dynamic -o ./fake-firmware-rust-dynamic-stripped
           strip ./fake-firmware-rust-static -o ./fake-firmware-rust-static-stripped
           strip ./minimal-fake-firmware-c-static -o ./minimal-fake-firmware-c-static-stripped
 
@@ -64,10 +71,12 @@ jobs:
           files: |
             ./fake-firmware-cpp-dynamic
             ./fake-firmware-c-dynamic
+            ./fake-firmware-rust-dynamic
             ./fake-firmware-rust-static
             ./minimal-fake-firmware-c-static
             ./fake-firmware-cpp-dynamic-stripped
             ./fake-firmware-c-dynamic-stripped
+            ./fake-firmware-rust-dynamic-stripped
             ./fake-firmware-rust-static-stripped
             ./minimal-fake-firmware-c-static-stripped
         env:

@@ -1,5 +1,4 @@
 // Features APIs
-//use libfakedevice::features::access_audio_driver;
 use libfakedevice::features::access_network;
 use libfakedevice::features::access_webcam;
 use libfakedevice::features::write_on_drive;
@@ -29,7 +28,8 @@ pub async fn features_apis() {
     access_webcam("/dev/video0").unwrap();
 
     // Access audio driver
-    //access_audio_driver();
+    #[cfg(not(target_env = "musl"))]
+    libfakedevice::features::no_musl::access_audio_driver();
 }
 
 async fn device_apis() {
