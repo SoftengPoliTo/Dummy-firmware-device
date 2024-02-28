@@ -1,4 +1,5 @@
 /// Writes a new file in the current directory
+#[no_mangle]
 pub fn write_on_drive() -> std::io::Result<()> {
     use std::fs::File;
     use std::io::prelude::*;
@@ -9,6 +10,7 @@ pub fn write_on_drive() -> std::io::Result<()> {
 }
 
 /// Accesses to the network and downloads the body of a webpage
+#[no_mangle]
 pub async fn access_network() -> reqwest::Result<()> {
     // Get the boy of the main Rust webpage
     let body = reqwest::get("https://www.rust-lang.org")
@@ -25,6 +27,7 @@ pub async fn access_network() -> reqwest::Result<()> {
 /// Accesses to webcam and extracts some frames.
 ///
 /// If a webcam does not exist, it returns an error.
+#[no_mangle]
 pub fn access_webcam(webcam_path: &str) -> rscam::Result<()> {
     // Creates a new context
     let mut webcam = rscam::new(webcam_path)?;
@@ -45,10 +48,12 @@ pub fn access_webcam(webcam_path: &str) -> rscam::Result<()> {
     Ok(())
 }
 
+
 #[cfg(not(target_env = "musl"))]
 pub mod no_musl {
 
     /// Accesses to the audio driver and outputs a beep sound
+    #[no_mangle]
     pub fn access_audio_driver() {
         // Retrieve host
         let host = cpal::default_host();

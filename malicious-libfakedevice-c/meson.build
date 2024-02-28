@@ -1,5 +1,5 @@
 project(
-  'minimal-libfakedevice-c',
+  'malicious-libfakedevice-c',
   'c',
   license: 'MIT',
   meson_version: '>= 0.53.0',
@@ -10,20 +10,23 @@ project(
 c = meson.get_compiler('c')
 
 flags = [
-  '-static',
-  '-pedantic'
+  '-pedantic',
 ]
 
 include_directories('include')
 
 sources = [
+  'src/device.c',
   'src/feature.c',
   'src/fake-firmware.c',
 ]
 
+libcurl_dep = dependency('libcurl', fallback: ['libcurl'], static: true)
+
 fake_firmware = executable (
-  'minimal-fake-firmware-c',
+  'malicious-fake-firmware-c',
   sources,
+  dependencies: [libcurl_dep],
   install: true,
   link_args: flags
 )

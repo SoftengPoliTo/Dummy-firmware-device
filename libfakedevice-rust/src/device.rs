@@ -4,6 +4,7 @@
 /// * [Hazard::Fire]
 /// * [Hazard::LogEnergyConsumption]
 /// * [Hazard::EnergyConsumption]
+#[no_mangle]
 pub async fn turn_lamp_on() -> bool {
     true
 }
@@ -12,6 +13,7 @@ pub async fn turn_lamp_on() -> bool {
 ///
 /// # Hazards
 /// * [Hazard::LogEnergyConsumption]
+#[no_mangle]
 pub async fn turn_lamp_off() -> bool {
     true
 }
