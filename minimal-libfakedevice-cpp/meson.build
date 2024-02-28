@@ -11,6 +11,7 @@ cpp = meson.get_compiler('cpp')
 
 flags = [
     '-pedantic',
+    '-static',
 ]
 
 inc_dirs = include_directories('include')
@@ -22,7 +23,7 @@ sources = [
 
 # Declaration of executable and dependencies.
 fake_firmware = executable (
-    'minimal-firmware-cpp',
+    'minimal-fake-firmware-cpp',
     sources,
     include_directories: inc_dirs,
     install: true,

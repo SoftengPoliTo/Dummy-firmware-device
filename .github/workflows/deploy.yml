@@ -43,9 +43,19 @@ jobs:
           cd libfakedevice-rust
           ./autorun.sh --target=x86_64-unknown-linux-musl
 
-      - name: Build minimal-firmware
+      - name: Build minimal-firmware-c
         run: |
           cd minimal-libfakedevice-c
+          ./autorun.sh
+      
+      - name: Build minimal-firmware-cpp
+        run: |
+          cd minimal-libfakedevice-cpp
+          ./autorun.sh
+
+      - name: Build malicious-firmware-c
+        run: |
+          cd malicious-libfakedevice-c
           ./autorun.sh
 
       - name: Rename binaries
@@ -53,16 +63,21 @@ jobs:
           mv ./libfakedevice-cpp/build/fake-firmware-cpp ./fake-firmware-cpp-dynamic
           mv ./libfakedevice-c/build/fake-firmware-c ./fake-firmware-c-dynamic
           mv ./libfakedevice-rust/target/debug/fake-firmware-rust ./fake-firmware-rust-dynamic
+          mv ./malicious-libfakedevice-c/build/malicious-fake-firmware-c ./malicious-fake-firmware-c-dynamic
           mv ./libfakedevice-rust/target/x86_64-unknown-linux-musl/debug/fake-firmware-rust ./fake-firmware-rust-static
           mv ./minimal-libfakedevice-c/build/minimal-fake-firmware-c ./minimal-fake-firmware-c-static
+          mv ./minimal-libfakedevice-cpp/build/minimal-fake-firmware-cpp ./minimal-fake-firmware-cpp-static
+          
 
       - name: Strip binaries
         run: |
           strip ./fake-firmware-cpp-dynamic -o ./fake-firmware-cpp-dynamic-stripped
           strip ./fake-firmware-c-dynamic -o ./fake-firmware-c-dynamic-stripped
           strip ./fake-firmware-rust-dynamic -o ./fake-firmware-rust-dynamic-stripped
+          strip ./malicious-fake-firmware-c-dynamic -o ./malicious-fake-firmware-c-dynamic-stripped
           strip ./fake-firmware-rust-static -o ./fake-firmware-rust-static-stripped
           strip ./minimal-fake-firmware-c-static -o ./minimal-fake-firmware-c-static-stripped
+          strip ./minimal-fake-firmware-cpp-static -o ./minimal-fake-firmware-cpp-static-stripped
 
       - name: Create a release
         uses: softprops/action-gh-release@v1
@@ -72,12 +87,16 @@ jobs:
             ./fake-firmware-cpp-dynamic
             ./fake-firmware-c-dynamic
             ./fake-firmware-rust-dynamic
+            ./malicious-fake-firmware-c-dynamic
             ./fake-firmware-rust-static
             ./minimal-fake-firmware-c-static
+            ./minimal-fake-firmware-cpp-static
             ./fake-firmware-cpp-dynamic-stripped
             ./fake-firmware-c-dynamic-stripped
             ./fake-firmware-rust-dynamic-stripped
             ./fake-firmware-rust-static-stripped
             ./minimal-fake-firmware-c-static-stripped
+            ./minimal-fake-firmware-cpp-static-stripped
+            ./malicious-fake-firmware-c-dynamic-stripped
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
